@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: backend
+    labels:
+      app: bd
+spec:
+    selector:
+        matchLabels:
+            app: bd
+            tier: backend
+    replicas: 1
+    template:
+       metadata:
+            labels:
+                app: bd
+                tier: backend
+       spec:
+            containers:
+             - name: app-php
+               image: unalatadefrijoles/laravel:sql1.2

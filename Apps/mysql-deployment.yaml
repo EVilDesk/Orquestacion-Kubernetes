@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: backend
+    labels:
+       app: bd
+spec:
+    selector:
+        matchLabels:
+            app: bd
+            tier: backend
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: bd
+                tier: backend
+        spec:
+            containers:
+            - name: bd-sql
+              image: unalatadefrijoles/laravel:sql1.2
+
+              ports:
+              - containerPort: 3306
+              volumeMounts:
+              - mountPath: "/var/lib/mysql"
+                name: my-sql-persistent-storage
+            volumes:
+              - name: my-sql-persistent-storage
+                persistentVolumeClaim:
+                    claimName: mysql-pv-claim	
